@@ -34,22 +34,16 @@ class App extends Component {
                 })
             );
     }
-
-    
-    getDate(){
-        var now = moment().format('LL');
-        return now;
-    }
     
     
 
     render() {
+        var now = moment(new Date()).format('LL');
         return (
             <View >
                 
                 <Card>
                 <Header headerText={'Natalia\'s Weather App'} />
-                <Text style={{height: 30, flex: 1}}>{this.getDate}</Text>
                     <CardSection>
                         <Input
                             placeholder='Your location'
@@ -71,8 +65,9 @@ class App extends Component {
                             />
                        
                     </CardSection>
-                
+                    
                 </Card>
+                <Text style={{ height: 50, justifyContent:'center', alignItems: 'center'}}>{now}</Text>
             </View>
         );
     }

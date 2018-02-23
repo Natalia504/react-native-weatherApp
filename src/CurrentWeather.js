@@ -20,7 +20,7 @@ const CurrentWeather = ({ data, location, icon}) => {
                     style={styles.imageStyle}
                     source={{ uri: icon.replace(/(http)/, 'https') }} />
             </View>
-            <Text style={{ fontSize: 12, margin: 5 }}>{observation_time} </Text>
+            <Text style={{ fontSize: 10, margin: 5 }}>{observation_time} </Text>
         </View>
     )
 }
