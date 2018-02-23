@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Header, Button, Spinner, Card, CardSection, Input } from './components/common';
 import CurrentWeather from './CurrentWeather';
 import moment from 'moment';
+import backgroundPic from './Assets/andrew-haimerl-478640-unsplash.jpg'
 
 // this line is to get rid of the annoying yellow box warning.
 console.ignoredYellowBox = ['Remote debugger'];
@@ -14,7 +15,7 @@ class App extends Component {
         data: {},
         location: {},
         icon: '',
-        error: '', 
+        error: '',
         loading: false
     }
 
@@ -29,24 +30,28 @@ class App extends Component {
             .then(res =>
                 this.setState({
                     data: res.data.current_observation,
-                    location: res.data.current_observation.display_location, 
+                    location: res.data.current_observation.display_location,
                     icon: res.data.current_observation.icon_url
                 })
             );
     }
-    
-    
+
+
 
     render() {
-        var now = moment(new Date()).format('LL');
+        var now = moment(new Date()).format('LLLL');
+        var resizeMode = 'contain'
         return (
             <View >
-                
+                <Image style={{flex:1, resizeMode}} source={backgroundPic}/>
                 <Card>
-                <Header headerText={'Natalia\'s Weather App'} />
+                    <Header headerText={'Natalia\'s Weather App'} />
+                    <CardSection>
+                        <Text style={styles.dateStyle}>{now}</Text>
+                    </CardSection>
                     <CardSection>
                         <Input
-                            placeholder='Your location'
+                            placeholder='Denver, CO or 80123'
                             label='Location'
                             value={this.state.userInput}
                             onChangeText={(val) => this.handleChange(val)}
@@ -58,18 +63,25 @@ class App extends Component {
                     </CardSection>
 
                     <CardSection>
-                        <CurrentWeather 
-                            data={this.state.data} 
+                        <CurrentWeather
+                            data={this.state.data}
                             location={this.state.location}
                             icon={this.state.icon}
-                            />
-                       
+                        />
                     </CardSection>
-                    
+
                 </Card>
-                <Text style={{ height: 50, justifyContent:'center', alignItems: 'center'}}>{now}</Text>
             </View>
         );
+    }
+}
+const styles={
+    dateStyle: {
+        height: 30, 
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center', 
+        color: 'blue'
     }
 }
 export default App;
