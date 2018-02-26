@@ -1,6 +1,6 @@
-# Weather App in React-Native
+## Weather App in React-Native
 
-## A simple weather App built in React-Native with Weather Underground API
+### A simple weather App built in React-Native with Weather Underground API
 I'm learning React Native, and this is my first project I built. The background image is changing every 10 second.
 
 ![Landing Page](https://github.com/Natalia504/react-native-weatherApp/blob/master/ReadMeAssets/Landing.png)
@@ -11,10 +11,15 @@ This App can:
 * look up weather by zip code, ie. 80123;
 * look up weather by international location, ie. Moscow, RU;
 
-![Look up by International location](https://github.com/Natalia504/react-native-weatherApp/blob/master/ReadMeAssets/Paris.png)
-![Look up by City&State](https://github.com/Natalia504/react-native-weatherApp/blob/master/ReadMeAssets/Denver.png)
-![Look up by Zip code](https://github.com/Natalia504/react-native-weatherApp/blob/master/ReadMeAssets/Paris.png)
+![Weather in Paris](https://github.com/Natalia504/react-native-weatherApp/blob/master/ReadMeAssets/Paris.png)
+![Weather in Denevr, CO](https://github.com/Natalia504/react-native-weatherApp/blob/master/ReadMeAssets/Denver.png)
 
+If the location is empty, misspelled, non-existent, or state is not provided, the error message will show:
 
-![If no location is provided, non-existing zip is entered, or location is misspelled:]('./ReadMeAssets/Error.png)
+![Error message](https://github.com/Natalia504/react-native-weatherApp/blob/master/ReadMeAssets/Error.png)
 
+*** 
+
+###Author
+
+Natalia Calt
