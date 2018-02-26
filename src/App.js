@@ -179,7 +179,7 @@ const styles = {
     },
     dateStyle: {
         fontSize: 18,
-        height: 23,
+        height: 25,
         fontWeight: '900',
         justifyContent: 'center',
         alignItems: 'center',
