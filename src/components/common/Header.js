@@ -13,13 +13,15 @@ const Header = (props) => {
 
 const styles = {
   textStyle: {
-    fontSize: 20
+    fontSize: 24,
+    fontWeight: '900',
+    color: '#E0E0E0'
   },
   viewStyle: {
-    backgroundColor: '#F8F8F8',
+    // backgroundColor: '#F8F8F8',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60,
+    height: 40,
     paddingTop: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

@@ -2,49 +2,46 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { Card, CardSection } from './components/common'
 
-const CurrentWeather = ({ data, location, icon}) => {
-    const { weather, temp_f, temp_c, icon_url, observation_time } = data;
+const CurrentWeather = ({ data, location, icon, error }) => {
+    const { weather, temp_f, temp_c, icon_url} = data;
     const { full } = location
-    console.log('Icon', icon)
 
     return (
         <View style={styles.viewStyle}>
-        { weather ? (
-            <View >
-                <Text style={styles.locationStyle}> {full} </Text>
-                <Text style={styles.textStyle}>Condition: {weather} </Text>
-                <Text style={styles.textStyle}>Farenheit: {temp_f} </Text>
-                <Text style={styles.textStyle}>Celsius: {temp_c} </Text>
-            </View>)
-            : null }
-            <View>
-        { icon? (
-                <Image
-                    style={styles.imageStyle}
-                    source={{ uri: icon.replace(/(http)/, 'https') }} />
-                ): null}   
-            </View>
-            {/* <Text style={{ fontSize: 10 }}>{observation_time} </Text> */}
+            {weather ? (
+                <View>
+                    <Text style={styles.locationStyle}> {full} </Text>
+                    <Text style={styles.textStyle}> Currently: {weather} </Text>
+                    <Text style={styles.textStyle}> {temp_f} F </Text>
+                    <Text style={styles.textStyle}> {temp_c} C </Text>
+                    <Image
+                        style={styles.imageStyle}
+                        source={{ uri: icon.replace(/(http)/, 'https') }} />
+                </View>)
+                : null}
         </View>
     )
 }
 const styles = {
-    locationStyle:{
-        fontSize: 20,
-        fontWeight: '900', 
-        color: 'blue'
+
+    locationStyle: {
+        fontSize: 24,
+        textDecorationLine: 'underline',
+        fontWeight: '900',
+        color: '#E0E0E0',
     },
     textStyle: {
-        fontSize: 16,
-        margin: 5,
-        fontWeight: '600',
-        color: 'blue'
+        fontSize: 22,
+        margin: 3,
+        fontWeight: '800',
+        color: '#fff', 
+        lineHeight: 22
     },
     viewStyle: {
-        height: 400,
+        minWidth: 300,
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
         marginLeft: 10,
         marginRight: 10
     },
