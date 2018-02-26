@@ -1,7 +1,7 @@
 # OSX
 #
 .DS_Store
-
+config.js
 # Xcode
 #
 build/
@@ -35,6 +35,7 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
+
 
 # BUCK
 buck-out/

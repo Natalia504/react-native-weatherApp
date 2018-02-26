@@ -17,7 +17,7 @@ import backgroundPic8 from './Assets/ash-edmonds.jpg';
 import backgroundPic9 from './Assets/frank-mckenna.jpg';
 import backgroundPic11 from './Assets/sea.jpg';
 import backgroundPic12 from './Assets/weather_unsplash.jpg';
-
+import config from './config';
 
 
 
@@ -71,7 +71,7 @@ class App extends Component {
             icon: ''
         })
 
-        axios.get(`https://api.wunderground.com/api/17702fa3e4783439/conditions/q/${this.state.userInput}.json`)
+        axios.get(`https://api.wunderground.com/api/${config.apiKey}/conditions/q/${this.state.userInput}.json`)
             .then(res =>
                 this.setState({
                     data: res.data.current_observation,
@@ -85,7 +85,7 @@ class App extends Component {
     //get weather for the next 6 days starting tomorrow and clear out the input field
     getWeather7() {
         this.getWeather();
-        axios.get(`https://api.wunderground.com/api/17702fa3e4783439/forecast10day/q/${this.state.userInput}.json`)
+        axios.get(`https://api.wunderground.com/api/${config.apiKey}/forecast10day/q/${this.state.userInput}.json`)
             .then(res =>
                 this.setState({
                     data10: res.data.forecast.simpleforecast.forecastday
