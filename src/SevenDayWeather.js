@@ -6,13 +6,14 @@ const SevenDayWeather = ({ day }) => {
 
     return (
         <View style={styles.viewStyle}>
-            {day.map((item, i) => {
+            { day.map((item, i) => {
+                var weekday = item.date.weekday.slice(0,3)
                 if (i!==0 && i<= 6) {
                     return (
                         <View style={{ flexDirection: 'column'}} key={item.period}>
-                            <Text style={styles.weekdayStyle}>{item.date.weekday}</Text>
+                            <Text style={styles.weekdayStyle}>{weekday}</Text>
                             <Text style={styles.textStyle}>{item.date.month}/{item.date.day}</Text>
-                            <Text style={styles.textStyle}>{item.conditions}</Text>
+                            {/* <Text style={styles.textStyle} adjustsFontSizeToFit={true} numberOfLines={3}>{item.conditions}</Text> */}
                             <Text style={styles.textStyle}>{item.high.fahrenheit} F</Text>
                             <Text style={styles.textStyle}>{item.high.celsius} C</Text>
                             <Image style={styles.imageStyle} source={{ uri: item.icon_url.replace(/(http)/, 'https') }} />
@@ -36,10 +37,8 @@ const styles = {
     textStyle: {
         fontSize: 18,
         fontWeight: '700',
-        // maxWidth: 100,
-        // maxHeight: 200,
         flexWrap: 'wrap',
-        marginRight: 10,
+        marginRight: 15,
         color: '#fff'
     },
     viewStyle: {
@@ -47,8 +46,9 @@ const styles = {
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginLeft: 10,
-        marginRight: 10
+        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5
     },
     imageStyle: {
         height: 30,

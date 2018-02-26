@@ -45,20 +45,21 @@ class App extends Component {
             picture: newPic
         })
     }
-
+    //time interval at which the background pciture changes
     componentDidMount() {
         setInterval(() => {
             this.pictureChange()
         }, 10000);
     }
 
+    //get the user input
     handleChange(val) {
         this.setState({
             userInput: val
         })
     }
 
-
+    //get current weather and clear out the input field
     getWeather() {
         this.setState({
             loading: true,
@@ -81,15 +82,8 @@ class App extends Component {
             .catch(() => this.weatherFail());
     }
 
+    //get weather for the next 6 days starting tomorrow and clear out the input field
     getWeather7() {
-        this.setState({
-            loading: true,
-            error: '',
-            userInput: '',
-            data: {},
-            location: {},
-            icon: ''
-        })
         this.getWeather();
         axios.get(`https://api.wunderground.com/api/17702fa3e4783439/forecast10day/q/${this.state.userInput}.json`)
             .then(res =>
@@ -98,6 +92,15 @@ class App extends Component {
                 })
             )
             .catch(() => this.weatherFail());
+
+            this.setState({
+                loading: true,
+                error: '',
+                userInput: '',
+                data: {},
+                location: {},
+                icon: ''
+            })
     }
 
     weatherFail() {
@@ -110,53 +113,50 @@ class App extends Component {
 
     render() {
         //date from Moment.js library
-        var now = moment().format('LL');
-        var today = moment().format('dddd');
+        var now = moment().format('LL'); //date: Feb 25, 2018
+        var today = moment().format('dddd'); //weekday: Sunday
         return (
             <ImageBackground style={styles.imageStyle} source={this.state.picture}>
                 <View style={styles.overlay} />
-                <Card>
-                    <Header headerText={'Weather App'} />
-                    <CardSection>
-                        <Text style={styles.dateStyle}>{today}, {now}</Text>
-                    </CardSection>
-                    <CardSection>
-                        <Input
-                            placeholder='Denver, CO or 80123'
-                            label='Location'
-                            value={this.state.userInput}
-                            onChangeText={(val) => this.handleChange(val)}
-                        />
-                    </CardSection>
+                <ScrollView >
+                    <Card >
+                        <Header headerText={'Weather App'} />
+                        <CardSection>
+                            <Input
+                                placeholder='Denver,CO or 80123'
+                                label='Location'
+                                value={this.state.userInput}
+                                onChangeText={(val) => this.handleChange(val)}
+                            />
+                        </CardSection>
 
-                    <CardSection>
-                        <Button onPress={() => this.getWeather()}> Current Weather </Button>
-                        <Button onPress={() => this.getWeather7()}> 7-day forecast</Button>                
-                    </CardSection>
+                        <CardSection>
+                            {/* <Button onPress={() => this.getWeather()}> Current Weather </Button> */}
+                            <Button onPress={() => this.getWeather7()}> 7-day forecast</Button>
+                        </CardSection>
 
-                    <CardSection>
                         <Text style={styles.errorStyle}>
                             {this.state.error}
                         </Text>
-                    </CardSection>
 
-                    <CardSection>
-                        <CurrentWeather
-                            data={this.state.data}
-                            location={this.state.location}
-                            icon={this.state.icon}
-                            error={this.state.error}
-                        />
-                    </CardSection>
-                    <CardSection >
-                        <ScrollView style={{ flex: 1}}>
-                                <SevenDayWeather
-                                    day={this.state.data10}
-                                    location={this.state.location} 
-                                />
-                        </ScrollView>
-                    </CardSection>
-                </Card>
+                        <CardSection>
+                            <CurrentWeather
+                                data={this.state.data}
+                                location={this.state.location}
+                                icon={this.state.icon}
+                                error={this.state.error}
+                                now={now}
+                                today={today}
+                            />
+                        </CardSection>
+                        <CardSection >
+                            <SevenDayWeather
+                                day={this.state.data10}
+                                location={this.state.location}
+                            />
+                        </CardSection>
+                    </Card>
+                </ScrollView>
             </ImageBackground>
         );
     }
@@ -177,18 +177,10 @@ const styles = {
         backgroundColor: '#1E1312',
         opacity: .6,
     },
-    dateStyle: {
-        fontSize: 18,
-        height: 25,
-        fontWeight: '900',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: '#E8E1E6'
-    },
+
     errorStyle: {
         fontSize: 18,
-        justifyContent: 'center',
-        alignItems: 'center',
+        textAlign: 'center',
         color: '#CE4849',
         fontWeight: '800'
     }

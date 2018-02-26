@@ -2,14 +2,16 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { Card, CardSection } from './components/common'
 
-const CurrentWeather = ({ data, location, icon, error }) => {
-    const { weather, temp_f, temp_c, icon_url} = data;
+const CurrentWeather = ({ data, location, icon, error, now, today }) => {
+    const { weather, temp_f, temp_c, icon_url } = data;
     const { full } = location
 
     return (
         <View style={styles.viewStyle}>
             {weather ? (
                 <View>
+
+                    <Text style={styles.dateStyle}>{today}, {now}</Text>
                     <Text style={styles.locationStyle}> {full} </Text>
                     <Text style={styles.textStyle}> Currently: {weather} </Text>
                     <Text style={styles.textStyle}> {temp_f} F </Text>
@@ -23,7 +25,15 @@ const CurrentWeather = ({ data, location, icon, error }) => {
     )
 }
 const styles = {
-
+    dateStyle: {
+        marginBottom: 5,
+        fontSize: 20,
+        height: 25,
+        fontWeight: '900',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#E8E1E6'
+    },
     locationStyle: {
         fontSize: 24,
         textDecorationLine: 'underline',
@@ -34,7 +44,7 @@ const styles = {
         fontSize: 22,
         margin: 3,
         fontWeight: '800',
-        color: '#fff', 
+        color: '#fff',
         lineHeight: 22
     },
     viewStyle: {
