@@ -3,7 +3,7 @@
 ### A simple weather App built in React-Native with Weather Underground API
 I'm learning React Native, and this is my first project I built. 
 
-<img src="./ReadMeAssets/Landing.png" width="250" height="400">
+<img src="./ReadMeAssets/Landing.png" width="250" height="420">
 
 This App can:
 * look up weather for the next 7 days, starting from today;
