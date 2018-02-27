@@ -11,8 +11,8 @@ This App can:
 * look up weather by zip code, i.e. 80123;
 * look up weather by international location, i.e Paris, FR;
 
-<img src="./ReadMeAssets/Denver.png" width="250" height="400">
-<img src="./ReadMeAssets/Paris.png" width="250" height="400">
+<img src="./ReadMeAssets/Denver.png" width="250" height="420">
+<img src="./ReadMeAssets/Paris.png" width="250" height="420">
 
 
 If the location is empty, misspelled, non-existent, or state is not provided, the error message will show:
