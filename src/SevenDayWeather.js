@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
-import { Card, CardSection } from './components/common'
+import { View, Text, Image } from 'react-native';
+import { Card, CardSection, Spinner } from './components/common'
 
-const SevenDayWeather = ({ day }) => {
+const SevenDayWeather = ({ day, loading }) => {
 
     return (
         <View style={styles.viewStyle}>
-            { day.map((item, i) => {
+                {day.map((item, i) => {
                 var weekday = item.date.weekday.slice(0,3)
                 if (i!==0 && i<= 6) {
                     return (

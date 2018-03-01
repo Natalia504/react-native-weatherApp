@@ -149,7 +149,7 @@ class App extends Component {
                         </Text>
 
                         {this.state.loading 
-                        ? <Spinner size='large'/>
+                        ? <Spinner size='small'/>
                         :<View>
                         <CardSection>
                             <CurrentWeather
@@ -166,6 +166,7 @@ class App extends Component {
                             <SevenDayWeather
                                 day={this.state.data10}
                                 location={this.state.location}
+                                loading={this.state.loading}
                             />
                         </CardSection>
                         </View>
