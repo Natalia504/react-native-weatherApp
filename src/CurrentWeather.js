@@ -1,25 +1,29 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { Card, CardSection } from './components/common'
+import { Card, CardSection, Spinner } from './components/common'
 
-const CurrentWeather = ({ data, location, icon, error, now, today }) => {
+const CurrentWeather = ({ data, location, icon, error, now, today, loading }) => {
     const { weather, temp_f, temp_c, icon_url } = data;
     const { full } = location
 
     return (
+
         <View style={styles.viewStyle}>
-            {weather ? (
+            {loading ?
+                <Spinner size='small' />
+                : weather ?
                 <View>
 
                     <Text style={styles.dateStyle}>{today}, {now}</Text>
                     <Text style={styles.locationStyle}> {full} </Text>
-                    <Text style={styles.textStyle}> Currently: {weather} </Text>
+                    <Text style={styles.textStyle}> {weather} </Text>
                     <Text style={styles.textStyle}> {temp_f} F </Text>
                     <Text style={styles.textStyle}> {temp_c} C </Text>
                     <Image
                         style={styles.imageStyle}
                         source={{ uri: icon.replace(/(http)/, 'https') }} />
-                </View>)
+
+                </View> 
                 : null}
         </View>
     )

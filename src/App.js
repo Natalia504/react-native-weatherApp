@@ -47,6 +47,7 @@ class App extends Component {
     }
     //time interval at which the background pciture changes
     componentDidMount() {
+        console.log("hello")
         setInterval(() => {
             this.pictureChange()
         }, 10000);
@@ -84,32 +85,40 @@ class App extends Component {
 
     //get weather for the next 6 days starting tomorrow and clear out the input field
     getWeather7() {
+        this.setState({
+            loading: true,
+            error: '',
+            userInput: '',
+            data: {},
+            location: {},
+            icon: ''
+        })
         this.getWeather();
         axios.get(`https://api.wunderground.com/api/${config.apiKey}/forecast10day/q/${this.state.userInput}.json`)
             .then(res =>
                 this.setState({
-                    data10: res.data.forecast.simpleforecast.forecastday
+                    data10: res.data.forecast.simpleforecast.forecastday,
+                    loading: false
                 })
             )
             .catch(() => this.weatherFail());
-
-            this.setState({
-                loading: true,
-                error: '',
-                userInput: '',
-                data: {},
-                location: {},
-                icon: ''
-            })
     }
 
+    //if location is wrong
     weatherFail() {
         this.setState({
             error: 'Location not found!',
             loading: false
         })
     }
-
+     
+    //maybe don't need this?
+    // weatherSuccess(){
+    //     this.setS({
+    //         error:'',
+    //         loading: false
+    //     })
+    // }
 
     render() {
         //date from Moment.js library
@@ -139,6 +148,9 @@ class App extends Component {
                             {this.state.error}
                         </Text>
 
+                        {this.state.loading 
+                        ? <Spinner size='large'/>
+                        :<View>
                         <CardSection>
                             <CurrentWeather
                                 data={this.state.data}
@@ -147,6 +159,7 @@ class App extends Component {
                                 error={this.state.error}
                                 now={now}
                                 today={today}
+                                loading={this.state.loading}
                             />
                         </CardSection>
                         <CardSection >
@@ -155,6 +168,8 @@ class App extends Component {
                                 location={this.state.location}
                             />
                         </CardSection>
+                        </View>
+                        }
                     </Card>
                 </ScrollView>
             </ImageBackground>
