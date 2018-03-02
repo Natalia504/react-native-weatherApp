@@ -1,9 +1,16 @@
 import React from 'react';
 import { TextInput, Text, View, TouchableOpacity } from 'react-native';
-import { Button } from '../common';
+import { Button, Spinner } from '../common';
+import FontAwesome, { Icons } from 'react-native-fontawesome';
+
+// FontAwesome error: Unrecognizable fontFamily "fontAwesome"
+// To Solve:  npm install react-native-vector-icons --save
+// react-native link react-native-vector-icons
+// and then restart: react-native run-ios
 
 const Input = ({ label, value, onChangeText, placeholder, getCurrentLocation }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
+  console.log('VAlue', value)
 
   return (
     <View style={containerStyle}>
@@ -15,9 +22,12 @@ const Input = ({ label, value, onChangeText, placeholder, getCurrentLocation }) 
         value={value}
         onChangeText={onChangeText}
       />
-      <Button onPress={getCurrentLocation}>
-        <Text>Click</Text>
-      </Button>
+       <TouchableOpacity onPress={getCurrentLocation}>
+        <Text style={{margin: 20, fontSize: 25, textAlign: 'left'}}>       
+          <FontAwesome>{Icons.locationArrow}</FontAwesome>
+        </Text>
+      </TouchableOpacity>
+      {/* : <Spinner size='small'/>} */}
     </View>
   )
 }

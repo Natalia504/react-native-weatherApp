@@ -50,10 +50,12 @@ class App extends Component {
 
     //time interval at which the background pciture changes
     componentDidMount() {
-       this.getGeoposition();
+       
         setInterval(() => {
             this.pictureChange()
         }, 10000);
+
+        this.getGeoposition();
     }
 
     //get the user input
@@ -80,10 +82,12 @@ class App extends Component {
     getCurrentLocation() {
         console.log(this.state.latitude, this.state.longitude)
         axios.get(`https://api.wunderground.com/api/${config.apiKey}/geolookup/q/${this.state.latitude},${this.state.longitude}.json`)
-            .then(res => {
+            .then(res => { 
                 this.setState({
                     userInput: `${res.data.location.city}, ${res.data.location.state}`
                 })
+                console.log('RES',this.state.userInput)
+
             })
     }
 
@@ -156,7 +160,7 @@ class App extends Component {
                             <Input
                                 placeholder='Denver,CO or 80123'
                                 label='Location'
-                                value={ this.state.userInput}
+                                value={ this.state.userInput }
                                 onChangeText={(val) => this.handleChange(val)}
                                 getCurrentLocation={() => this.getCurrentLocation()}
                             />
