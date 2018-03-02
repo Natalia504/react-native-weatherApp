@@ -34,6 +34,8 @@ class App extends Component {
         error: '',
         loading: false,
         picture: backgroundPic,
+        latitude: '',
+        longitude: ''
     }
 
     pictureChange() {
@@ -45,9 +47,10 @@ class App extends Component {
             picture: newPic
         })
     }
+
     //time interval at which the background pciture changes
     componentDidMount() {
-        console.log("hello")
+       this.getGeoposition();
         setInterval(() => {
             this.pictureChange()
         }, 10000);
@@ -58,6 +61,30 @@ class App extends Component {
         this.setState({
             userInput: val
         })
+    }
+
+    //get geoposition
+    getGeoposition() {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                });
+            },
+            (error) => this.setState({ error: "Loading ..." }),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        );
+    }
+
+    getCurrentLocation() {
+        console.log(this.state.latitude, this.state.longitude)
+        axios.get(`https://api.wunderground.com/api/${config.apiKey}/geolookup/q/${this.state.latitude},${this.state.longitude}.json`)
+            .then(res => {
+                this.setState({
+                    userInput: `${res.data.location.city}, ${res.data.location.state}`
+                })
+            })
     }
 
     //get current weather and clear out the input field
@@ -111,16 +138,10 @@ class App extends Component {
             loading: false
         })
     }
-     
-    //maybe don't need this?
-    // weatherSuccess(){
-    //     this.setS({
-    //         error:'',
-    //         loading: false
-    //     })
-    // }
+
 
     render() {
+       
         //date from Moment.js library
         var now = moment().format('LL'); //date: Feb 25, 2018
         var today = moment().format('dddd'); //weekday: Sunday
@@ -130,17 +151,18 @@ class App extends Component {
                 <ScrollView >
                     <Card >
                         <Header headerText={'Weather App'} />
+                        {/* <Geolocation /> */}
                         <CardSection>
                             <Input
                                 placeholder='Denver,CO or 80123'
                                 label='Location'
-                                value={this.state.userInput}
+                                value={ this.state.userInput}
                                 onChangeText={(val) => this.handleChange(val)}
+                                getCurrentLocation={() => this.getCurrentLocation()}
                             />
                         </CardSection>
 
                         <CardSection>
-                            {/* <Button onPress={() => this.getWeather()}> Current Weather </Button> */}
                             <Button onPress={() => this.getWeather7()}> 7-day forecast</Button>
                         </CardSection>
 
@@ -148,28 +170,28 @@ class App extends Component {
                             {this.state.error}
                         </Text>
 
-                        {this.state.loading 
-                        ? <Spinner size='small'/>
-                        :<View>
-                        <CardSection>
-                            <CurrentWeather
-                                data={this.state.data}
-                                location={this.state.location}
-                                icon={this.state.icon}
-                                error={this.state.error}
-                                now={now}
-                                today={today}
-                                loading={this.state.loading}
-                            />
-                        </CardSection>
-                        <CardSection >
-                            <SevenDayWeather
-                                day={this.state.data10}
-                                location={this.state.location}
-                                loading={this.state.loading}
-                            />
-                        </CardSection>
-                        </View>
+                        {this.state.loading
+                            ? <Spinner size='large' />
+                            : <View>
+                                <CardSection>
+                                    <CurrentWeather
+                                        data={this.state.data}
+                                        location={this.state.location}
+                                        icon={this.state.icon}
+                                        error={this.state.error}
+                                        now={now}
+                                        today={today}
+                                        loading={this.state.loading}
+                                    />
+                                </CardSection>
+                                <CardSection >
+                                    <SevenDayWeather
+                                        day={this.state.data10}
+                                        location={this.state.location}
+                                        loading={this.state.loading}
+                                    />
+                                </CardSection>
+                            </View>
                         }
                     </Card>
                 </ScrollView>

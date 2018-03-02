@@ -1,7 +1,8 @@
 import React from 'react';
-import { TextInput, Text, View } from 'react-native';
+import { TextInput, Text, View, TouchableOpacity } from 'react-native';
+import { Button } from '../common';
 
-const Input = ({ label, value, onChangeText, placeholder }) => {
+const Input = ({ label, value, onChangeText, placeholder, getCurrentLocation }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
 
   return (
@@ -14,6 +15,9 @@ const Input = ({ label, value, onChangeText, placeholder }) => {
         value={value}
         onChangeText={onChangeText}
       />
+      <Button onPress={getCurrentLocation}>
+        <Text>Click</Text>
+      </Button>
     </View>
   )
 }
